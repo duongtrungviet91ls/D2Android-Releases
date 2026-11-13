@@ -1,5 +1,12 @@
 name: Build test APK (ahardwarebuffer)
 
+# Builds the patched D2Android test APK (RESOURCE_MEMORY_TYPE = 3) from this
+# branch. Runs on GitHub's Linux runners because the local build VM blocks
+# the loopback TCP the Gradle daemon needs.
+# The APK is signed with a throwaway keystore generated inside the run, so
+# it installs as a one-off test build (uninstall the official app first,
+# and export your saves before uninstalling).
+
 on:
   workflow_dispatch:
   push:
@@ -29,10 +36,10 @@ jobs:
           distribution: temurin
           java-version: "17"
 
-            # No setup-android action: its v3 tries to install the legacy 'tools'
-            # package that Google removed, which fails the job. The ubuntu-24.04
-            # runner image already ships an Android SDK with sdkmanager.
-            - name: Install Android SDK components
+      # No setup-android action: its v3 tries to install the legacy 'tools'
+      # package that Google removed, which fails the job. The ubuntu-24.04
+      # runner image already ships an Android SDK with sdkmanager.
+      - name: Install Android SDK components
         run: |
           yes | sdkmanager --licenses > /dev/null 2>&1 || true
           sdkmanager "platforms;android-35" "build-tools;34.0.0" \
