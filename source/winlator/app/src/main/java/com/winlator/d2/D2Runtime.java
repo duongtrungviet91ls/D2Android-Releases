@@ -396,9 +396,10 @@ public final class D2Runtime {
         env.put("BOX64_DYNAREC_WAIT", "0");
         env.put("BOX64_DYNAREC_NATIVEFLAGS", "0");
         env.put("BOX64_DYNAREC_WEAKBARRIER", "0");
+        env.put("BOX64_LOG", "1");
 
         env.put("WINEPREFIX", root + "/home/xuser/.wine");
-        env.put("WINEDEBUG", "err");
+        env.put("WINEDEBUG", "+err,+seh");
         env.put("WINEESYNC", "1");
         env.put("WINE_DO_NOT_CREATE_DXGI_DEVICE_MANAGER", "1");
 
