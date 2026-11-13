@@ -33,7 +33,7 @@ public final class D2GpuPath {
 
 
 
-    public static final byte RESOURCE_MEMORY_TYPE = 0;
+    public static final byte RESOURCE_MEMORY_TYPE = 3; // ahardwarebuffer (forced for Mali-G57 test build; upstream: 0 = auto, 2 = dma-buf, 3 = ahardwarebuffer)
     static final String[] RESOURCE_MEMORY_NAMES = {"auto", "opaque fd", "dma-buf", "ahardwarebuffer"};
 
     public static final String VORTEK_LOG = "vortek.log", VORTEK_LOG_PREV = "vortek.prev.log";
