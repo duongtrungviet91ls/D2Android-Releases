@@ -398,7 +398,7 @@ public final class D2Runtime {
         env.put("BOX64_DYNAREC_WEAKBARRIER", "0");
 
         env.put("WINEPREFIX", root + "/home/xuser/.wine");
-        env.put("WINEDEBUG", "-all");
+        env.put("WINEDEBUG", "err");
         env.put("WINEESYNC", "1");
         env.put("WINE_DO_NOT_CREATE_DXGI_DEVICE_MANAGER", "1");
 
@@ -441,7 +441,7 @@ public final class D2Runtime {
         File dir = logFile(context, D2DxvkLog.DIR);
         D2DxvkLog.rotate(dir);
         FileUtils.symlink(dir.getAbsolutePath(), new File(rootDir(context), D2DxvkLog.LINK).getPath());
-        env.put("DXVK_LOG_LEVEL", warnings ? "warn" : "error");
+        env.put("DXVK_LOG_LEVEL", "info");
         env.put("DXVK_LOG_PATH", D2DxvkLog.WINE_PATH);
     }
 
