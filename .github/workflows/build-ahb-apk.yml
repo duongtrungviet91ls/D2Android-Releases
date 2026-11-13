@@ -38,11 +38,14 @@ jobs:
 
       # No setup-android action: its v3 tries to install the legacy 'tools'
       # package that Google removed, which fails the job. The ubuntu-24.04
-      # runner image already ships an Android SDK with sdkmanager.
+      # runner image already ships an Android SDK, but sdkmanager is not on
+      # PATH, so it is located dynamically under $ANDROID_HOME below.
       - name: Install Android SDK components
         run: |
-          yes | sdkmanager --licenses > /dev/null 2>&1 || true
-          sdkmanager "platforms;android-35" "build-tools;34.0.0" \
+          SDKMANAGER="$(find "$ANDROID_HOME/cmdline-tools" -name sdkmanager -type f 2>/dev/null | sort -V | tail -1)"
+          echo "Using sdkmanager: $SDKMANAGER"
+          yes | "$SDKMANAGER" --licenses > /dev/null 2>&1 || true
+          "$SDKMANAGER" "platforms;android-35" "build-tools;34.0.0" \
             "ndk;24.0.8215888" "cmake;3.22.1" "platform-tools"
 
       - name: Fetch third-party parts and build runtime + mod
