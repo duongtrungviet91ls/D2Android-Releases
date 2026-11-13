@@ -29,10 +29,10 @@ jobs:
           distribution: temurin
           java-version: "17"
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: Install Android SDK components
+            # No setup-android action: its v3 tries to install the legacy 'tools'
+            # package that Google removed, which fails the job. The ubuntu-24.04
+            # runner image already ships an Android SDK with sdkmanager.
+            - name: Install Android SDK components
         run: |
           yes | sdkmanager --licenses > /dev/null 2>&1 || true
           sdkmanager "platforms;android-35" "build-tools;34.0.0" \
